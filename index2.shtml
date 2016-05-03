@@ -1,0 +1,417 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta http-equiv="Content-Language" content="en-us" />
+	<meta name="description" content="LifeFlow Project at the Human-Computer Interaction Lab at the University of Maryland, College Park" />
+	<meta name="keywords" content="user interfaces, human-computer interaction, HCI, visualization, event sequences, lifeflow, temporal data" />
+
+	<link href="http://www.cs.umd.edu/hcil/_styles/screen.css" rel="stylesheet" type="text/css" media="screen" />
+	<link href="http://www.cs.umd.edu/hcil/_styles/menu.css" rel="stylesheet" type="text/css" />
+	<link rel="shortcut icon" href="http://www.cs.umd.edu/hcil/favicon.ico" type="image/x-icon" />
+	<!--<script type="text/javascript" src="http://www.cs.umd.edu/hcil/_scripts/hcil.js"></script>-->
+
+	<title>Designing the User Interface - Edition 6</title>
+
+	<!-- highlight active area -->
+	<script type="text/javascript">
+	var active_page='research';
+	</script>
+
+	<!-- Google Analytics -->
+	<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-27380042-1']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+	</script>
+	
+	       <style>
+      @import url(http://fonts.googleapis.com/css?family=Roboto:700,300,600,800,400);
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #5d676c;
+  font-family: 'Roboto', sans-serif;
+}
+
+.l-site {
+  margin: 0 auto;
+  max-width: 1600px;
+  position: relative;
+  background:black;
+  z-index: 1;
+}
+.l-site:before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 50%;
+  display: block;
+  background: #3a4043;
+  z-index: 1;
+}
+
+.l-page {
+  position: relative;
+  margin-left: 240px;
+  background: #fff;
+  z-index: 2;
+  box-shadow: 1px 0 25px rgba(0, 0, 0, 0.75);
+  -webkit-transition: 0.35s;
+  -moz-transition: 0.35s;
+  transition: 0.35s;
+}
+
+.l-nav {
+  position: absolute;
+  width: 240px;
+  display: block;
+  background: #3a4043;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+}
+
+.band h1 {
+  margin: 0;
+  padding: 0 0 10px;
+  color: #111;
+  font-size: 32px;
+}
+.band p {
+  margin: 0;
+  padding: 0;
+  color: #000;
+  font-size: 17px;
+}
+
+.band-container {
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  min-height: 35vh;
+  max-width: 960px;
+  display: table;
+  position: relative;
+  padding: 0 3em;
+}
+
+.band-inner {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 3em 0 4em;
+}
+
+.band-a {
+  background: #f2fdf3;
+  opacity: 1;
+}
+
+.band-b {
+  background: #f0ffee;
+}
+
+.band-c {
+  background: #ebffee;
+}
+
+.band-d {
+  background: #e5fae5;
+}
+
+.nav {
+  width: 180px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 30px;
+  overflow: auto;
+}
+.nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.nav li {
+  margin: 0;
+  padding: 0;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  transition: 0.25s;
+}
+.nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 800;
+  display: block;
+  padding: 10px 0;
+}
+.nav .nav-primary {
+  opacity: 1;
+}
+.nav .nav-primary:hover {
+  opacity: 0.7;
+}
+.nav .nav-secondary {
+  opacity: 0.4;
+}
+.nav .nav-secondary:hover {
+  opacity: 0.7;
+}
+
+.menu {
+  display: none;
+  position: fixed;
+  top: 25px;
+  left: 1.5em;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 10;
+}
+.menu:hover .menu-hamburger:before,
+.menu:hover .menu-hamburger:after {
+  width: 24px;
+}
+.menu.is-active .menu-hamburger {
+  background: none;
+}
+.menu.is-active .menu-hamburger:before,
+.menu.is-active .menu-hamburger:after {
+  top: 0;
+  width: 24px;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.menu.is-active .menu-hamburger:after {
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.menu.is-active .menu-hamburger:hover {
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+.menu-hamburger {
+  position: relative;
+  width: 24px;
+  height:  4px;
+  margin: 10px 0;
+  background: #464646;
+  border-radius: 4px;
+  transition: all 300ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.menu-hamburger:before, .menu-hamburger:after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 4px;
+  background: #464646;
+  position: absolute;
+  border-radius: 4px;
+  transition: all 300ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.menu-hamburger:before {
+  top: -8px;
+  left: 0;
+  width: 22px;
+}
+.menu-hamburger:after {
+  top: 8px;
+  width: 16px;
+  left: 0;
+}
+
+a,a:visited:active
+{
+color: #111111;
+}
+
+@media screen and (max-width: 980px) {
+  .menu {
+    display: block;
+  }
+
+  .l-site.is-open {
+    overflow: hidden;
+  }
+  .l-site.is-open .l-page {
+    -webkit-transform: translateX(240px);
+    -moz-transform: translateX(240px);
+    -ms-transform: translateX(240px);
+    -o-transform: translateX(240px);
+    transform: translateX(240px);
+  }
+
+  .l-page {
+    margin-left: 0;
+    z-index: 3;
+  }
+
+  .l-nav {
+    z-index: 2;
+  }
+
+  .band-container {
+    padding: 0 1.5em;
+  }
+}
+
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+    
+    
+	<!-- End Google Analytics -->
+</head>
+
+  <body>
+
+    
+<div class="l-site">
+  <div class="l-nav">
+    <nav class="nav">
+      <ul>
+        <li class="nav-primary"><a href="#home">Home</a></li>
+        <li class="nav-primary"><a href="#about">About</a></li>
+        <li class="nav-primary"><a href="#authors">Authors</a></li>
+        <li class="nav-primary"><a href="#past">Past Reviews</a></li>
+
+      </ul>
+    </nav>
+  </div>
+  <div class="l-page">
+    <div class="menu">
+      <div class="menu-hamburger"></div>
+    </div>
+    <section class="band band-a">
+      <div class="band-container" id="home">
+        <div class="band-inner">
+          <h1>
+          Designing the User Interface, new 6th Edition!</h1>
+          <p>The much awaited "Designing the User Interface, 6th Edition is in progress!
+          This is a new, revised edition of the highly successful textbook on Human Computer Interaction originally developed by Ben Shneiderman and Catherine Plaisant at the University of Maryland.<br/>
+          <a href="DTUI6 flyer.pdf">Download Flyer</a></p>
+        </div>
+      </div>
+    </section>
+    <section class="band band-b">
+      <div class="band-container" id="about">
+        <div class="band-inner">
+          <h1>About</h1>
+          <p>
+          Designing the User Interface: Strategies for Effective Human-Computer Interaction provides a comprehensive introduction to the dynamic field of human-computer interaction (HCI). An expanded author team brings unparalleled industry and academic experience to this latest edition. Practical techniques, research-supported design guidelines, and a multitude of current examples and figures illustrate good design principles and practices, effectively guiding readers through their first HCI design projects.<br/><br/>
+          So what's new in the 6th edition?<br/><br/>
+- Big emphasis on mobile<br/>
+- Design case studies<br/>
+- Totally revamped chapter on social media<br/>
+- Expanded author team to increase breadth of experience<br/>
+- More emphasis on UX (user experience)<br/>
+- Watch for a revised, complete companion website
+</p>
+        </div>
+      </div>
+    </section>
+    <section class="band band-c">
+      <div class="band-container" id="authors">
+        <div class="band-inner">
+          <h1>Authors</h1>
+          <p><img id="authorimg" src="dtui6.jpg" width="100%"/><br/>
+          <center><p>Authors: From left to right</p></center><br/>
+<a href="https://www.cs.umd.edu/users/ben/">Ben Shneiderman</a> is a Professor in the Department of Computer Science, Founding Director (1983—2000) of the <a href="http://www.cs.umd.edu/hcil">Human-Computer Interaction Laboratory</a>, and Member of the Institute for Advanced Computer Studies and the Institute for Systems Research, all at the University of Maryland at College Park. He is a Fellow of the ACM and AAAS and received the ACM CHI (Computer Human Interaction) Lifetime Achievement Award. His books, research papers, and frequent lectures have made him an international leader in this emerging discipline. For relaxation he likes biking, hiking, skiing, and travel.
+<br/><br/>
+<a href="http://cefns.nau.edu/~smj93/">Steven M. Jacobs</a> recently retired from the aerospace industry and is now a lecturer at Northern Arizona University, Flagstaff, Arizona. He was formerly with Northrop Grumman Mission Systems in Carson, California. Mr. Jacobs managed engineers developing user interface and web applications software for various government and commercial applications. He was also Adjunct Assistant Professor at the University of Southern California for 17 years, where he developed and taught their graduate computer science courses in user interface design and human performance engineering. He has also taught short courses in similar topics for UCLA Extension and ACM.  He received his M.S.C.S. from UCLA, B.A. in Mathematics from Monmouth University (N.J.).  
+<br/><br/>
+<a href="http://www.scis.nova.edu/~cohenm/">Maxine S. Cohen</a> is a Professor in the Graduate School of Computer and Information Sciences at Nova Southeastern University in Fort Lauderdale, Florida where she teaches graduate courses in Human-Computer Interaction (HCI). Before joining NSU, she worked at IBM in the User Centered Design department. Prior to IBM, she was a faculty member in the Computer Science department, in the Watson School of Engineering at the State University of New York at Binghamton. She has been teaching and working in the HCI field for over 20 years. She received a B.A. in Mathematics from the University of Vermont, a M.S. (specialization Computer Science) and a Ph.D. (specialization Systems Science) from the State University of New York at Binghamton.
+<br/><br/>
+
+<a href="http://www.nickdiakopoulos.com/">Nicholas Diakopoulos</a> is an Assistant Professor at the University of Maryland, College Park College of Journalism with courtesy appointments in the College of Information Studies and Department of Computer Science. His research is in computational and data journalism with an emphasis on algorithmic accountability, narrative data visualization, and social computing in the news. He received his Ph.D. in Computer Science from the School of Interactive Computing at Georgia Tech where he co-founded the program in Computational Journalism. Before UMD he worked as a researcher at Columbia University, Rutgers University, and CUNY studying the intersections of information science, innovation, and journalism.<br/><br/>
+
+<a href="https://sites.umiacs.umd.edu/elm/">Niklas Elmqvist</a> is an associate professor in the iSchool (College of Information Studies) at University of Maryland, College Park. He received his Ph.D. in computer science in 2006 from Chalmers University in Gothenburg, Sweden, and has conducted research at Georgia Institute of Technology in Atlanta, GA (Spring 2006), INRIA in Paris, France (Spring 2007), and Microsoft Research in Paris, France (2007-2008). Prior to joining University of Maryland, he was an assistant professor of electrical and computer engineering at Purdue University in West Lafayette, IN. His research area is information visualization, human-computer interaction, and visual analytics. He is the recipient of an NSF CAREER award as well as best paper awards from the IEEE Information Visualization conference, the International Journal of Virtual Reality, and the ASME IDETC/CIE 2013 conference. He is an associate editor of the Information Visualization journal as well as co-editor of the Morgan Claypool Synthesis Lectures on Visualization. His research has been funded by both federal agencies such as NSF and DHS as well as by companies such as Google, NVIDIA, and Microsoft. He is also the recipient of the Purdue Student Government Graduate Mentoring Award in 2014, a Ruth and Joel Spira Outstanding Teacher Award in 2012, and the Purdue ECE Chicago Alumni New Faculty award in 2010.
+
+
+<br/><br/>
+<a href="http://www.cs.umd.edu/hcil/members/cplaisant/">Catherine Plaisant</a> is Associate Research Scientist at the Human-Computer Interaction Laboratory of the University of Maryland Institute for Advanced Computer Studies. She earned a Doctorat d’Ingénieur degree in France in 1982 and has been conducting research in the field of human-computer interaction since then. In 1987, she joined Professor Shneiderman at the University of Maryland, where she has worked with students and members of the lab, throughout the growth of the field of human-computer interaction. Her research contributions range from focused interaction techniques to innovative visualizations validated with user studies to practical applications developed with industrial partners.
+<br/><br/>
+</p>
+        </div>
+      </div>
+    </section>
+    <section class="band band-d">
+      <div class="band-container" id="past">
+        <div class="band-inner">
+          <h1>Past Reviews [<a href="http://www.amazon.com/Designing-User-Interface-Human-Computer-Interaction/dp/0321537351/ref=cm_cr-mr-title">From Amazon.com]</a></h1>
+          <p>
+          As a Human-Computer Interaction University Associate Professor I was delighted with the new edition of Designing the User Interface: Strategies for Effective Human-Computer Interaction (5th Edition).
+It was entirely renewed and fully updated.
+I have shared this textbook with my HCI undergraduate and graduate HCI students this semester and they liked it a lot and found it touches well and thoroughly current HCI issues!
+Ben Shneiderman and Catherine Plaisant present and discuss timely most key HCI theories, concepts, ideas and applications.
+I strongly recommend this book for academic and professional HCI courses.
+ <br/>
+ - <i>Jaime Sánchez, HCI Professor at the University of Chile</i>
+ 
+ <br/>
+ <br/>
+ The 5th edition thoroughly updates and improves this valuable resource for students, professionals, and researchers interested in human-computer interaction. The presentation's coherent depth and breadth clarify how the interface mediates our access to information, and the need to match its design to our cognitive and perceptual capabilities. I was especially pleased that my colleagues Shneiderman and Plaisant included a chapter on information visualization also providing a rich list of references on this and other related fields. They make a convincing case for development of new information visualization evaluation tools. The 5th symphony, I meant edition, made me better aware of how mobile devices are changing our world and of the increasing power of YouTube, flickr and other social media. This is a great book!
+
+ <br/>
+ - <i>Alfred Inselberg, Senior Fellow San Diego Supercomputing Center at the Department of Computer Science, Tel Aviv University</i>
+          </p>
+        </div>
+      </div>
+    </section>
+    <center>Webpage by <a href="http://cs.umd.edu/~gashok/">Gowtham Ashok</a></center>  
+  </div>
+    
+</div>
+
+    <script src="jquery-2.1.4.min.js"></script>
+
+        <script>
+      $('.menu').on('click', function () {
+    if ($('.l-site').hasClass('is-open')) {
+        $('.menu').removeClass('is-active');
+        $('.l-site').removeClass('is-open');
+    } else {
+        $('.menu').addClass('is-active');
+        $('.l-site').addClass('is-open');
+    }
+});
+    
+    </script>
+
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+    
+<!-- content ends here -->		
+
+<!-- footer -->
+<!--#include virtual="/hcil/_includes/footer.html"-->
+
+	</body>
+
+	</html>
